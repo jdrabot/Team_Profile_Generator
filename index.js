@@ -6,6 +6,7 @@ const Intern = require("./lib/Intern");
 const generateTeams = require("./src/page-template");
 const myTeam = [];
 
+// All questions for the prompts in the command line created here
 const questions = [
     {
         type: "list",
@@ -84,6 +85,7 @@ const internQuestions = [
     },
 ];
 
+// all functions to run the prompts are here
 function manager() {
     inquirer.prompt(managerQuestions).then((res) => {
         const manag = new Manager(res.name, res.id, res.email, res.officeNumber);
