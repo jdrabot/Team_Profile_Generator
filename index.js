@@ -88,6 +88,48 @@ function manager() {
     inquirer.prompt(managerQuestions).then((res) => {
         const manag = new Manager(res.name, res.id, res.email, res.officeNumber);
         myTeam.push(manag);
+        addTeamQuestions();
     });
 }
 
+function engineer() {
+    inquirer.prompt(engineerQuestions).then((res) => {
+        const engin = new Engineer(res.name, res.id, res.email, res.githubUsername);
+        myTeam.push(engin);
+        addTeamQuestions();
+    });
+}
+
+function intern() {
+    inquirer.prompt(internQuestions).then((res) => {
+        const inter = new Intern(res.name, res.id, res.email, res.school);
+        myTeam.push(inter);
+        addTeamQuestions();
+    });
+}
+
+function addTeamQuestions() {
+    inquirer.prompt(questions).then((res) => {
+        switch (res.teamMember) {
+            case "Engineer":
+                engineer();
+                break;
+            case "Intern":
+                intern();
+                break;
+            case "Manager":
+                manager();
+                break;
+            case "Finish":
+                console.log("HTML has been created.")
+                fs.writeFileSync("./output/index.html", generateTeams(myTeam));
+        }
+    });
+}
+
+function init() {
+    console.log("Add team members: ");
+    addTeamQuestions();
+};
+
+init();
